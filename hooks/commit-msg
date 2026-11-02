@@ -1,0 +1,13 @@
+#!/bin/sh
+# Git runs this on every commit and passes the message file as $1.
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Use whichever Python actually works.
+for PY in python python3 py; do
+  if "$PY" -c "" >/dev/null 2>&1; then
+    exec "$PY" "$HOOK_DIR/tita_hook.py" "$1"
+  fi
+done
+
+echo "Tita Baby: Hijo, wala kang Python! Commit allowed, pero mag-install ka."
+exit 0
