@@ -21,7 +21,7 @@ scripts/speak.py            # text-to-speech with edge-tts (free, no API key)
 Clone into your personal skills folder:
 
 ```bash
-git clone https://github.com/<your-username>/tita-code-review ~/.claude/skills/tita-code-review
+git clone https://github.com/pork-arie/tita-code-review ~/.claude/skills/tita-code-review
 ```
 
 Or, for a single project, clone into `<project>/.claude/skills/tita-code-review`.
