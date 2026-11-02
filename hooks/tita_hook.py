@@ -17,6 +17,7 @@ Skip Tita for one commit:  git commit --no-verify
 
 import asyncio
 import datetime
+import io
 import os
 import random
 import re
@@ -28,10 +29,11 @@ ROOT = os.path.dirname(HOOK_DIR)
 VOICE_DIR = os.path.join(ROOT, "assets", "voice")
 
 # Windows terminals sometimes choke on non-ASCII; never crash a commit over it.
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+if isinstance(sys.stdout, io.TextIOWrapper):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 # ---------------------------------------------------------------- the lines
 # Each line has an id so its MP3 can be cached in assets/voice/<id>.mp3
