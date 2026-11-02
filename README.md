@@ -14,6 +14,13 @@ references/tita-phrases.md  # phrase bank the agent draws from
 scripts/speak.py            # text-to-speech with edge-tts (free, no API key)
 ```
 
+## How it works
+
+1. **Triggering.** Your agent only sees the `name` and `description` in `SKILL.md` until a request matches, such as "tita review this file". Then it loads the full skill.
+2. **Reviewing.** `SKILL.md` tells the agent to find real problems first (bugs, missing error handling, no tests), then rewrite each one in Tita's voice. Every review follows the same structure: an opener, up to 5 issues (each with the joke, a plain explanation and the fix), a compliment, and the one thing to fix first.
+3. **Phrases.** The agent reads `references/tita-phrases.md` only while writing, and varies the lines so reviews don't repeat.
+4. **Voice.** If you ask for audio, the agent writes a short spoken script with no code or symbols and passes it to `speak.py`. The script cleans out leftover markdown, respells tech words the way they should sound (`API` → "ey pee ay"), and generates an MP3 with Microsoft's Filipino voice `fil-PH-BlessicaNeural`.
+
 ## Install
 
 ### Claude Code
@@ -53,7 +60,7 @@ python scripts/speak.py --file script.txt
 python scripts/speak.py --list-voices
 ```
 
-Options: `--voice`, `--rate` (default `+8%`), `--pitch` (default `+5Hz`).
+Options: `--out` (default `tita_review.mp3`), `--voice` (default `fil-PH-BlessicaNeural`), `--rate` (default `+8%`), `--pitch` (default `+5Hz`).
 
 To teach it how to say more tech words, add them to the `PRONUNCIATION` dict in `speak.py`.
 
